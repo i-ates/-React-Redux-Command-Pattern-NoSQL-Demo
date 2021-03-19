@@ -10,6 +10,7 @@ public class Main {
         gui.commit();
         gui.redo();
         gui.commit();
+        System.out.println("selam");
 
         // https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
     }
