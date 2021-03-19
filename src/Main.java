@@ -10,7 +10,7 @@ public class Main {
         gui.commit();
         gui.redo();
         gui.commit();
-        System.out.println("selam");
+        System.out.println("selam222");
 
         //xxxxx
 
