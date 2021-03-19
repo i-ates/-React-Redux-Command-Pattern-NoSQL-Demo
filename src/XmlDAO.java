@@ -55,7 +55,7 @@ public class XmlDAO implements IDAO {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new File("C:\\Users\\ismail\\Desktop\\src\\xmlfile.xml"));
+            StreamResult streamResult = new StreamResult(new File(outputFilePath));
 
 
             transformer.transform(domSource, streamResult);
