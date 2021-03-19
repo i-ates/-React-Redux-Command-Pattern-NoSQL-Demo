@@ -12,6 +12,8 @@ public class Main {
         gui.commit();
         System.out.println("selam");
 
+
+        System.out.println("said kaya");
         // https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
     }
 
