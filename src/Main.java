@@ -16,6 +16,6 @@ public class Main {
 
     public static void list(GUI gui){
         gui.getInvoker().getMiddleware().getObjects().forEach(System.out::println);
-        System.out.println("hello");
+        System.out.println("hello ");
     }
 }
