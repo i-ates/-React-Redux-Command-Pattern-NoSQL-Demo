@@ -12,7 +12,7 @@ public class Main {
         gui.commit();
         System.out.println("selam");
 
-        //xd
+        //xxxxx
         // https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
     }
 
