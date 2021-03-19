@@ -1,7 +1,6 @@
 public class Main {
 
     public static void main(String argv[]) {
-        System.out.println("Hello world");
         GUI gui = new GUI(new Invoker(new Middleware(new XmlDAO("C:\\Users\\ismail\\Desktop\\PrettyFormatter\\xmlfile.xml"))));
         gui.addElement(new Student("a", "said"));
         gui.addElement(new Student("b", "ismail"));
@@ -10,11 +9,7 @@ public class Main {
         gui.commit();
         gui.redo();
         gui.commit();
-        System.out.println("selam");
 
-        //xxxxx
-
-        System.out.println("said kaya");
         // https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
     }
 
