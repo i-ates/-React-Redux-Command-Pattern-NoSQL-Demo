@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String argv[]) {
-
+        System.out.println("Hello world");
         GUI gui = new GUI(new Invoker(new Middleware(new XmlDAO("C:\\Users\\ismail\\Desktop\\src\\xmlfile.xml"))));
         gui.addElement(new Student("a", "said"));
         gui.addElement(new Student("b", "ismail"));
