@@ -6,8 +6,8 @@ import Middleware from "./Middleware";
 import JsonDAO from "./dao/JsonDAO";
 
 class Trigger {
-    constructor() {
-        this._invoker = new Invoker(new Middleware(new JsonDAO()));
+    constructor(gui) {
+        this._invoker = new Invoker(new Middleware(new JsonDAO(),gui));
     }
     getInvoker() {
         return this._invoker;

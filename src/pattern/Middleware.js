@@ -1,7 +1,8 @@
 class Middleware {
-    constructor(newDao) {
+    constructor(newDao,gui) {
         this._dao = newDao;
         this._objects = [];
+        this._gui = gui;
     }
     getDAO() {
         return this._dao;
@@ -17,13 +18,16 @@ class Middleware {
     }
     addDocument(object) {
         this._objects.push(object);
+        this._gui.update(this._objects);
     }
     removeDocument(object) {
         this._objects = this._objects.filter(o => o.id !== object.id);
+        this._gui.update(this._objects);
     }
     updateDocument(object) {
         let previousObjects = this._objects.filter(o => o.id !== object.id);
         this._objects = [...previousObjects, object];
+        this._gui.update(this._objects);
     }
     commit() {
         this._dao.write(this._objects);

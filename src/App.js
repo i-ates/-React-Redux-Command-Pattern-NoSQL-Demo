@@ -1,33 +1,50 @@
-import {useEffect} from "react";
 import Trigger from "./pattern/Trigger";
+import React, { Component } from 'react'
 
-function App() {
+export default class App extends Component {
+  constructor(args){
+    super(args);
+    this.state = {
+      rows : [],
+      trigger : new Trigger(this)
+    }
+  }
 
-  useEffect(()=>{
-    let trigger = new Trigger();
-    trigger.addElement({"id":1,"name":"Said"});
-    trigger.commit();
-    trigger.undo();
-    trigger.commit();
-    trigger.redo();
-    trigger.commit();
-    trigger.updateElement({"id":1,"name":"Said"},{"id":1,"name":"Muhammed"});
-    trigger.commit();
-    trigger.undo();
-    trigger.commit();
-    trigger.removeElement({"id":1,"name":"Said"});
-    trigger.commit();
-    trigger.undo();
-    trigger.commit();
-    trigger.redo();
-    trigger.commit();
-  },[]);
+  update = (rows) => {
+    this.setState({rows});
+  }
 
-  return (
-    <div >
-      
-    </div>
-  );
+  addElement = () => {
+    this.state.trigger.addElement(this.state.object);
+  }
+
+  removeElement = () => {
+    this.state.trigger.removeElement(this.state.object);
+  }
+
+  updateElement = (prev,next) => {
+    this.state.trigger.updateElement(prev,next);
+  }
+
+  undo = () => {
+    this.state.trigger.undo();
+  }
+
+  redo = () => {
+    this.state.trigger.redo();
+  }
+
+  render() {
+    const {rows} = this.state;
+    return (
+      <div >
+        <input type="text" name="object" onChange={e => this.setState({[e.target.name]:JSON.parse(e.target.value)})}></input>
+        <button onClick={this.addElement}>Add</button>
+        <button onClick={this.removeElement}>Remove</button>
+        <button onClick={this.undo}>Undo</button>
+        <button onClick={this.redo}>Redo</button>
+        {rows.map(row => (<div key={row.id}>{JSON.stringify(row)}</div>) ) }
+      </div>
+    );
+  }
 }
-
-export default App;
