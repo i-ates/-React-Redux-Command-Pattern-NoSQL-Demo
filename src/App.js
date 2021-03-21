@@ -5,9 +5,10 @@ export default class App extends Component {
   constructor(args){
     super(args);
     this.state = {
-      rows : [],
+      rows : JSON.parse(localStorage.getItem("objects")),
       trigger : new Trigger(this)
     }
+    console.log(this.state.rows);
   }
 
   update = (rows) => {
@@ -34,6 +35,10 @@ export default class App extends Component {
     this.state.trigger.redo();
   }
 
+  commit = () => {
+    this.state.trigger.commit();
+  }
+
   render() {
     const {rows} = this.state;
     return (
@@ -43,7 +48,8 @@ export default class App extends Component {
         <button onClick={this.removeElement}>Remove</button>
         <button onClick={this.undo}>Undo</button>
         <button onClick={this.redo}>Redo</button>
-        {rows.map(row => (<div key={row.id}>{JSON.stringify(row)}</div>) ) }
+        <button onClick={this.commit}>Commit</button>
+        {rows && rows.map(row => (<div key={row.id}>{JSON.stringify(row)}</div>) ) }
       </div>
     );
   }

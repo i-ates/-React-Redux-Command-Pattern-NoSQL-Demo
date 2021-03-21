@@ -1,9 +1,6 @@
 export default class JsonDAO{
     write(objects){
-        console.log("-----------");
-        objects.forEach(element => {
-            console.log(element);
-        });
-        console.log("-----------");
+        console.log(objects);
+        localStorage.setItem('objects', JSON.stringify(objects));
     }
 }
