@@ -1,22 +1,22 @@
 class Command {
     constructor(newObject, newMiddleware) {
-        this.object = newObject;
-        this.middleware = newMiddleware;
+        this._object = newObject;
+        this._middleware = newMiddleware;
         if (this.constructor === Command) {
             throw new Error("FYI: Instance of Abstract class cannot  be instantited.");
         }
     }
     getElement() {
-        return this.object;
+        return this._object;
     }
     setElement(newObject) {
-        this.object = newObject;
+        this._object = newObject;
     }
     getMiddleware() {
-        return this.middleware;
+        return this._middleware;
     }
     setMiddleware(newMiddleware) {
-        this.middleware = newMiddleware;
+        this._middleware = newMiddleware;
     }
 }
 export default Command;

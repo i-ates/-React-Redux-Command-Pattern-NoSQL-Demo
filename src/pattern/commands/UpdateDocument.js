@@ -3,7 +3,7 @@ import Command from "./Command"
 class UpdateDocument extends Command{
     constructor(newPreviousObject, newObject, newMiddleware) {
         super(newObject, newMiddleware);
-        this._previosObject = newPreviousObject;
+        this._previousObject = newPreviousObject;
     }
     getPreviousObject() {
         return this._previousObject;
@@ -15,7 +15,7 @@ class UpdateDocument extends Command{
         super.getMiddleware().updateDocument(super.getElement());
     }
     unexecute() {
-        super.getMiddleware().removeDocument(this.getPreviousObject());
+        super.getMiddleware().updateDocument(this.getPreviousObject());
     }
 }
 export default UpdateDocument;

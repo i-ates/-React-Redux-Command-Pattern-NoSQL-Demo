@@ -22,7 +22,7 @@ class Middleware {
         this._objects = this._objects.filter(o => o.id !== object.id);
     }
     updateDocument(object) {
-        let previousObjects = this._object.filter(o => o.id !== object.id);
+        let previousObjects = this._objects.filter(o => o.id !== object.id);
         this._objects = [previousObjects, object];
     }
     commit() {
