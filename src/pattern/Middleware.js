@@ -23,7 +23,7 @@ class Middleware {
     }
     updateDocument(object) {
         let previousObjects = this._objects.filter(o => o.id !== object.id);
-        this._objects = [previousObjects, object];
+        this._objects = [...previousObjects, object];
     }
     commit() {
         this._dao.write(this._objects);
