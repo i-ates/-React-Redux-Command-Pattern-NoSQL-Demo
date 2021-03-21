@@ -23,8 +23,8 @@ export default class App extends Component {
     this.state.trigger.removeElement(this.state.object);
   }
 
-  updateElement = (prev,next) => {
-    this.state.trigger.updateElement(prev,next);
+  updateElement = () => {
+    this.state.trigger.updateElement(this.state.object,this.state.object2);
   }
 
   undo = () => {
@@ -44,8 +44,10 @@ export default class App extends Component {
     return (
       <div >
         <input type="text" name="object" onChange={e => this.setState({[e.target.name]:JSON.parse(e.target.value)})}></input>
+        <input type="text" name="object2" onChange={e => this.setState({[e.target.name]:JSON.parse(e.target.value)})}></input>
         <button onClick={this.addElement}>Add</button>
         <button onClick={this.removeElement}>Remove</button>
+        <button onClick={this.updateElement}>Update</button>
         <button onClick={this.undo}>Undo</button>
         <button onClick={this.redo}>Redo</button>
         <button onClick={this.commit}>Commit</button>
