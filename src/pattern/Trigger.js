@@ -6,8 +6,8 @@ import Middleware from "./Middleware";
 import JsonDAO from "./dao/JsonDAO";
 
 class Trigger {
-    constructor(gui) {
-        this._invoker = new Invoker(new Middleware(new JsonDAO(),gui));
+    constructor() {
+        this._invoker = new Invoker(new Middleware(new JsonDAO()));
     }
     getInvoker() {
         return this._invoker;
@@ -25,10 +25,12 @@ class Trigger {
         this._invoker.execute(new UpdateDocument(previousObject, object, this._invoker.getMiddleware()));
     }
     undo() {
-        this._invoker.undo();
+        let rows = this._invoker.undo();
+        return rows;
     }
     redo() {
-        this._invoker.redo();
+        let rows = this._invoker.redo();
+        return rows;
     }
     commit() {
         this._invoker.commit();

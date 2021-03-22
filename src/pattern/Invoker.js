@@ -15,6 +15,9 @@ class Invoker {
             let command = this._undoCommands.pop();
             command.unexecute();
             this._redoCommands.push(command);
+            console.log(this.getMiddleware());
+            console.log(this.getMiddleware().getObjects())
+            return this.getMiddleware().getObjects();
         } catch (error) { }
         return this;
     }
@@ -23,6 +26,7 @@ class Invoker {
             let command = this._redoCommands.pop();
             command.execute();
             this._undoCommands.push(command);
+            return this.getMiddleware().getObjects();
         } catch (error) { }
         return this;
     }
