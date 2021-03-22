@@ -12,8 +12,7 @@
 *.sar
 *.class
 *.iml
-
-/node_modules
+node_modules/
 
 # IntelliJ project files 
 *.iml

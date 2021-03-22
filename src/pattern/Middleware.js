@@ -1,7 +1,7 @@
 class Middleware {
     constructor(newDao,gui) {
         this._dao = newDao;
-        this._objects = JSON.parse(localStorage.getItem("objects"));
+        this._objects = []
         this._gui = gui;
     }
     getDAO() {
