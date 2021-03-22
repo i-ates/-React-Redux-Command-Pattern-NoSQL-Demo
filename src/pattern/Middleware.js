@@ -16,7 +16,7 @@ class Middleware {
         this._objects = newObjects;
     }
     addDocument(object) {
-        this._objects.push(object);
+        this._objects=[...this._objects,object];
     }
     removeDocument(object) {
         this._objects = this._objects.filter(o => o.id !== object.id);
