@@ -8,31 +8,25 @@ class Invoker {
         command.execute();
         this._undoCommands.push(command);
         this._redoCommands = [];
-        return this;
     }
     undo() {
         try {
             let command = this._undoCommands.pop();
             command.unexecute();
             this._redoCommands.push(command);
-            console.log(this.getMiddleware());
-            console.log(this.getMiddleware().getObjects())
-            return this.getMiddleware().getObjects();
         } catch (error) { }
-        return this;
+        return this.getMiddleware().getObjects();
     }
     redo() {
         try {
             let command = this._redoCommands.pop();
             command.execute();
             this._undoCommands.push(command);
-            return this.getMiddleware().getObjects();
         } catch (error) { }
-        return this;
+        return this.getMiddleware().getObjects();
     }
     commit() {
         this._middleware.commit();
-        return this;
     }
     getMiddleware() {
         return this._middleware;
