@@ -3,9 +3,6 @@ import FileSaver from 'file-saver';
 import 'antd/dist/antd.css';
 import { Context } from "./Context";
 import LeftMenu from "./classes/LeftMenu";
-import Content from "./classes/Content";
-
-
 
 export default class App extends Component {
 
@@ -19,7 +16,6 @@ export default class App extends Component {
               crossOrigin="anonymous"
           />
         <LeftMenu/>
-        <Content/>
       </Context>
     );
   }
