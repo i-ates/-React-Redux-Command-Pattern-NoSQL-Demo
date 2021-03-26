@@ -1,6 +1,6 @@
 import Command from "./Command"
 
-class UpdateDocument extends Command{
+class updateCollection extends Command{
     constructor(newPreviousObject, newObject, newMiddleware) {
         super(newObject, newMiddleware);
         this._previousObject = newPreviousObject;
@@ -12,10 +12,10 @@ class UpdateDocument extends Command{
         this._previousObject = newPreviousObject;
     }
     execute() {
-        super.getMiddleware().updateDocument(super.getElement());
+        super.getMiddleware().updateCollection(super.getElement());
     }
     unexecute() {
-        super.getMiddleware().updateDocument(this.getPreviousObject());
+        super.getMiddleware().updateCollection(this.getPreviousObject());
     }
 }
-export default UpdateDocument;
+export default updateCollection;

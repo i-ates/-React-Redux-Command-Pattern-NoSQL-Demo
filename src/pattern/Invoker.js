@@ -15,7 +15,7 @@ class Invoker {
             command.unexecute();
             this._redoCommands.push(command);
         } catch (error) { }
-        return this.getMiddleware().getObjects();
+        return this.getMiddleware().getCollections();
     }
     redo() {
         try {
@@ -23,7 +23,7 @@ class Invoker {
             command.execute();
             this._undoCommands.push(command);
         } catch (error) { }
-        return this.getMiddleware().getObjects();
+        return this.getMiddleware().getCollections();
     }
     commit() {
         this._middleware.commit();

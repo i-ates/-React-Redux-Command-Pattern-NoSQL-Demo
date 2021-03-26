@@ -1,7 +1,7 @@
 class Middleware {
     constructor(newDao) {
         this._dao = newDao;
-        this._objects =localStorage.getItem("objects")? JSON.parse(localStorage.getItem("objects")):[];
+        this._collections = localStorage.getItem("collections") ? JSON.parse(localStorage.getItem("collections")) : []
     }
     getDAO() {
         return this._dao;
@@ -9,24 +9,24 @@ class Middleware {
     setDAO(newDao) {
         this._dao = newDao;
     }
-    getObjects() {
-        return this._objects;
+    getCollections() {
+        return this._collections;
     }
-    setObjects(newObjects) {
-        this._objects = newObjects;
+    setCollections(collections) {
+        this._collections = collections;
     }
-    addDocument(object) {
-        this._objects=[...this._objects,object];
+    addCollection(collection){
+        this._collections = [...this._collections,collection]
     }
-    removeDocument(object) {
-        this._objects = this._objects.filter(o => o.id !== object.id);
+    removeCollection(collection) {
+        this._collections = this._collections.filter(o => o.id !== collection.id);
     }
-    updateDocument(object) {
-        let previousObjects = this._objects.filter(o => o.id !== object.id);
-        this._objects = [...previousObjects, object];
+    updateCollection(collection) {
+        let previousObjects = this._collections.filter(o => o.id !== collection.id);
+        this._collections = [...previousObjects, collection];
     }
     commit() {
-        this._dao.write(this._objects);
+        this._dao.write(this._collections);
     }
 }
 export default Middleware;

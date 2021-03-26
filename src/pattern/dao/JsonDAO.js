@@ -1,6 +1,5 @@
 export default class JsonDAO{
     write(objects){
-        console.log(objects);
-        localStorage.setItem('objects', JSON.stringify(objects));
+        localStorage.setItem('collections', JSON.stringify(objects));
     }
 }
