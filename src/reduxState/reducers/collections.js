@@ -17,7 +17,7 @@ const collectionReducer = (
         case "UPDATE_COLLECTION":
             return{
                 ...prevState,
-                rows: [...prevState.collections.filter(collection => collection.id !== action.payload.id) , action.payload]
+                collections: [...prevState.collections.filter(collection => collection.id !== action.payload.id) , action.payload]
             }
         case "UNDO":
         case "REDO":
