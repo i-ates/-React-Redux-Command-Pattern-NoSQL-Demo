@@ -9,19 +9,20 @@ export class ContextProvider extends Component {
         super(props);
         this.state = {
             trigger: new Trigger(),
-            setCollection: (collectionName) => {
+            setCollection: (collection) => {
                 this.setState(prevState => {
                     return {
                         ...prevState,
-                        collectionName
+                        collection,
+                        document: undefined
                     };
                 });
             },
-            setDocument: (documentName) => {
+            setDocument: (document) => {
                 this.setState(prevState => {
                     return {
                         ...prevState,
-                        documentName
+                        document
                     };
                 });
             },
