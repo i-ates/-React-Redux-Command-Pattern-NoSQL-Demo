@@ -1,7 +1,7 @@
 import {AppstoreAddOutlined, DeleteOutlined} from "@ant-design/icons";
 import ContextConsumer from "../contextapi/Context";
 import {useDispatch, useSelector} from "react-redux";
-import {useRef, useState} from "react";
+import { useState} from "react";
 import { Modal } from 'antd';
 import { Form, Input, Row, Col} from 'antd';
 import {addCollection, removeCollection} from "../reduxState/actions";
@@ -9,9 +9,6 @@ import uniquid from "uniquid";
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
-};
-const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
 };
 
 export default function Collections() {
@@ -25,7 +22,7 @@ export default function Collections() {
 
   const dispatch = useDispatch();
 
-  const handleOk = (trigger) => {
+  const handleOk = (trigger,setUndoCommandsCount) => {
       let collection = {
           id: uniquid(),
           name: input,
@@ -33,12 +30,14 @@ export default function Collections() {
       };
       setInput("");
       trigger.addCollection(collection);
+      setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length)
       dispatch(addCollection(collection));
       setIsModalVisible(false);
   };
 
-  const remove = (trigger,collection) => {
+  const remove = (trigger,collection,setUndoCommandsCount) => {
       trigger.removeCollection(collection);
+      setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length)
       dispatch(removeCollection(collection));
   };
 
@@ -49,7 +48,7 @@ export default function Collections() {
   return (
       <ContextConsumer>
         {(value) => {
-          const { setCollection, trigger } = value;
+          const { setCollection, trigger,setUndoCommandsCount} = value;
           return (
               <div className="col-4 border border-top-0">
                 <div className="p-3 bg-light border border-1">
@@ -57,7 +56,7 @@ export default function Collections() {
                     Collections
                     <AppstoreAddOutlined className="d-flex mt-1 justify-content-end" onClick={showModal} />
                       <>
-                          <Modal title="Basic Modal" visible={isModalVisible} onOk={() => handleOk(trigger)} onCancel={handleCancel}>
+                          <Modal title="Basic Modal" visible={isModalVisible} onOk={() => handleOk(trigger,setUndoCommandsCount)} onCancel={handleCancel}>
                               <Form
                                   {...layout}
                                   name="basic"
@@ -85,7 +84,7 @@ export default function Collections() {
                                       </div>
                                   </Col>
                                   <Col md={4} offset={4}>
-                                      <div onClick={() => remove(trigger,collection)} className="p-2" style={{cursor: "pointer"}}>
+                                      <div onClick={() => remove(trigger,collection,setUndoCommandsCount)} className="p-2" style={{cursor: "pointer"}}>
                                           <DeleteOutlined />
                                       </div>
                                   </Col>

@@ -12,13 +12,17 @@ import {Radio} from "antd";
 export default function ContentHeader() {
 
   const dispatch = useDispatch();
-  const undo = (trigger) => {
+  const undo = (trigger,setRedoCommandsCount,setUndoCommandsCount) => {
     let collections = trigger.undo();
+    setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
+    setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
     dispatch(undoChange(collections));
   };
 
-  const redo = (trigger) => {
+  const redo = (trigger,setRedoCommandsCount,setUndoCommandsCount) => {
     let collections = trigger.redo();
+    setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
+    setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
     dispatch(redoChange(collections));
   };
 
@@ -32,13 +36,13 @@ export default function ContentHeader() {
   return (
     <ContextConsumer>
       {(value) => {
-        const {document,collection,trigger,isJSON, setIsJSON} = value;
+        const {document,collection,trigger,isJSON, setIsJSON,undoCommandsCount,redoCommandsCount,setRedoCommandsCount,setUndoCommandsCount} = value;
         return (
           <div className="row justify-content-start p-3 bg-light no-gutters border rounded border-1">
-            <div className="col-md-9 d-flex">
+            <div className="col-md-7 d-flex">
               <HomeOutlined className="mr-3 mt-2" /><div className="mt-1">{collection && collection.name !== undefined ? collection.name : ""}{document && document.name !== undefined ? ` > ${document.name}` : ""}</div>
             </div>
-            <div className="col-md-3 d-flex mt-1 justify-content-end">
+            <div className="col-md-5 d-flex mt-1 justify-content-end">
               <Radio.Group
                   className="mr-4"
                   options={[{label: "JSON",value: true},{label: "XML",value: false}]}
@@ -47,8 +51,8 @@ export default function ContentHeader() {
                   optionType="button"
                   buttonStyle="solid"
               />
-              <UndoOutlined className="mr-2 mt-2" onClick={() => undo(trigger)} />
-              <RedoOutlined className="mr-2 mt-2" onClick={() => redo(trigger)}/>
+              {undoCommandsCount !== 0  && <UndoOutlined className="mr-2 mt-2" onClick={() => undo(trigger,setRedoCommandsCount,setUndoCommandsCount)} />}
+              {redoCommandsCount !== 0  && <RedoOutlined  className="mr-2 mt-2" onClick={() => redo(trigger,setRedoCommandsCount,setUndoCommandsCount)}/>}
               <ArrowUpOutlined className="mr-2 mt-2" onClick={() => commit(trigger)}/>
               <SaveOutlined className="mr-2 mt-2" onClick={() => save(trigger,isJSON)}/>
             </div>
