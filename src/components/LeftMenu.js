@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import { useRef,useState } from "react";
 import { useDispatch } from "react-redux";
 import ContextConsumer from "../contextapi/Context";
 
@@ -22,10 +22,10 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 
-
 const LeftMenu = () => {
   const object1 = useRef();
   const object2 = useRef();
+  const [isJson,setIsJson] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -62,6 +62,10 @@ const LeftMenu = () => {
     trigger.commit();
   };
 
+  const save = (trigger) => {
+    trigger.save(isJson ? "json" : "xml");
+  };
+
   return (
     <ContextConsumer>
       {(value) => {
@@ -71,22 +75,15 @@ const LeftMenu = () => {
             <Row style={{ marginBottom: "16px", marginLeft: "0px" }}>
               <Col lg={5}>Adding Value:</Col>
               <Col>
-                <input
-                  type="text"
-                  ref={object1}
-                />
+                <input type="text" ref={object1} />
               </Col>
             </Row>
             <Row style={{ marginBottom: "16px", marginLeft: "0px" }}>
               <Col lg={5}>Updated Value:</Col>
               <Col style={{ float: "left" }}>
-                <input
-                  type="text"
-                  ref={object2}
-                />
+                <input type="text" ref={object2} />
               </Col>
             </Row>
-
             <Row style={{ marginBottom: "16px", marginLeft: "0px" }}>
               <PageHeader
                 className="site-page-header responsiveHeader"
@@ -100,7 +97,7 @@ const LeftMenu = () => {
                   type="primary"
                   style={{ paddingBottom: "10px" }}
                 >
-                  <FileAddOutlined/>
+                  <FileAddOutlined />
                 </Button>
               </Col>
               <Col lg={2} style={{ marginBottom: "16px" }}>
@@ -109,7 +106,7 @@ const LeftMenu = () => {
                   type="primary"
                   style={{ paddingBottom: "10px" }}
                 >
-                  <SyncOutlined/>
+                  <SyncOutlined />
                 </Button>
               </Col>
               <Col lg={2} style={{ marginBottom: "16px" }}>
@@ -118,8 +115,44 @@ const LeftMenu = () => {
                   type="primary"
                   style={{ paddingBottom: "10px" }}
                 >
-                  <DeleteTwoTone/>
+                  <DeleteTwoTone />
                 </Button>
+              </Col>
+              <Col lg={2} style={{ marginBottom: "16px" }}>
+                <Button
+                  onClick={() => save(trigger)}
+                  type="primary"
+                  style={{ paddingBottom: "10px" }}
+                >
+                  SAVE
+                </Button>
+              </Col>
+              <Col>
+                <div class="btn-group" role="group">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    id="xml"
+                    autocomplete="off"
+                    onClick={() => {setIsJson(false)}}
+                    checked={!isJson}
+                  />
+                  <label className="btn btn-outline-primary" for="xml">
+                    XML
+                  </label>
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    id="json"
+                    autocomplete="off"
+                    checked={isJson}
+                    onClick={() => {setIsJson(true)}}
+                  />
+                  <label className="btn btn-outline-primary" for="json">
+                    JSON
+                  </label>
+                </div>
               </Col>
             </Row>
             <Row>

@@ -36,5 +36,8 @@ class Trigger {
     commit() {
         this._invoker.commit();
     }
+    save(type){
+        this._invoker.save(type);
+    }
 }
 export default Trigger;

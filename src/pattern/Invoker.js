@@ -28,6 +28,9 @@ class Invoker {
     commit() {
         this._middleware.commit();
     }
+    save(type){
+        this._middleware.save(type);
+    }
     getMiddleware() {
         return this._middleware;
     }

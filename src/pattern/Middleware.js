@@ -28,5 +28,8 @@ class Middleware {
     commit() {
         this._dao.write(this._collections);
     }
+    save(type){
+        this._dao.save(type);
+    }
 }
 export default Middleware;
