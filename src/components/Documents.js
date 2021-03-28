@@ -50,7 +50,7 @@ export default function Documents() {
   return (
     <ContextConsumer>
       {(value) => {
-        const {setDocument, collection, trigger, setUndoCommandsCount, setRedoCommandsCount} = value;
+        const {setDocument, collection, trigger, setUndoCommandsCount, setRedoCommandsCount,document} = value;
         let currCollection = undefined;
         if (collection !== undefined) {
           currCollection = collections.filter(c => {
@@ -90,17 +90,17 @@ export default function Documents() {
             </div>
             <div style={{overflow:"auto", height: "540px"}}>
               {
-                currCollection && currCollection.documents && currCollection.documents.map(document => {
+                currCollection && currCollection.documents && currCollection.documents.map(singleDocument => {
                   return (
                     <>
-                      <Row className="p-1">
+                      <Row className="p-1" style={{backgroundColor:document && document?.id == singleDocument?.id ? '#EFEFF1' : null,marginBottom:5}}>
                         <Col md={16}>
-                          <div key={document.id} onClick={() => setDocument({id: document.id, name: document.name})} className="p-2" style={{cursor: "pointer"}}>
-                            {document.name}
+                          <div key={singleDocument.id} onClick={() => setDocument({id: singleDocument.id, name: singleDocument.name})} className="p-2" style={{cursor: "pointer"}}>
+                            {singleDocument.name}
                           </div>
                         </Col>
                         <Col md={4} offset={4}>
-                          <div onClick={() => remove(trigger,setUndoCommandsCount,setRedoCommandsCount,currCollection,document.id)} className="p-2 d-flex justify-content-end" style={{cursor: "pointer"}}>
+                          <div onClick={() => remove(trigger,setUndoCommandsCount,setRedoCommandsCount,currCollection,singleDocument.id)} className="p-2 d-flex justify-content-end" style={{cursor: "pointer"}}>
                             <DeleteOutlined />
                           </div>
                         </Col>

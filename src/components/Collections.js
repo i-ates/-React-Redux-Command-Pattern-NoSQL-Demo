@@ -77,7 +77,7 @@ export default function Collections() {
                     collections && collections.map(singleCollection => {
                       return(
                           <>
-                            <Row className="p-1" style={{backgroundColor:collection && collection?.id == singleCollection?.id ? '#EFEFF1' : null,marginTop:5,marginBottom:5}} >
+                            <Row className="p-1" style={{backgroundColor:collection && collection?.id == singleCollection?.id ? '#EFEFF1' : null,marginBottom:5}} >
                               <Col md={16}>
                                 <div key={singleCollection.id} onClick={() => setCollection({id: singleCollection.id, name: singleCollection.name})} className="p-2" style={{cursor: "pointer"}}>
                                   {singleCollection.name}
