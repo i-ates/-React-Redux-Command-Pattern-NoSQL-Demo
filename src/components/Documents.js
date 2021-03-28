@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Form, Input, Modal} from "antd";
 import {useState} from "react";
 import uniquid from "uniquid";
-import {addCollection, updateCollection} from "../reduxState/actions";
+import {updateCollection} from "../reduxState/actions";
 
 const layout = {
   labelCol: {span: 8},
@@ -28,13 +28,10 @@ export default function Documents() {
     };
     setInput("");
     let collection = {id: oldCollection.id, name: oldCollection.name, documents: oldCollection.documents};
-    collection.documents.push(document);
-    console.log(collection);
+    collection.documents = [...collection.documents,document];
     trigger.updateCollection(oldCollection, collection);
     setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
     setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
-    console.log(trigger.getInvoker().getUndoCommands().length);
-    console.log(trigger.getInvoker().getRedoCommands().length);
     dispatch(updateCollection(collection));
     setIsModalVisible(false);
   };
