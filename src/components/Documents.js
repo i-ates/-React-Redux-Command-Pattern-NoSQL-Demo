@@ -22,6 +22,10 @@ export default function Documents() {
   const dispatch = useDispatch();
 
   const handleOk = (trigger, setUndoCommandsCount,setRedoCommandsCount, oldCollection) => {
+    if(input.trim().length === 0){
+      alert("Name cannot be empty.");
+      return;
+    }
     let document = {
       id: uniquid(),
       name: input,

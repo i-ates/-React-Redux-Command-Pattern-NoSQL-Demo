@@ -6,6 +6,7 @@ import { Modal } from 'antd';
 import { Form, Input, Row, Col} from 'antd';
 import {addCollection, removeCollection} from "../reduxState/actions";
 import uniquid from "uniquid";
+import { Alert } from 'antd';
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -23,6 +24,10 @@ export default function Collections() {
   const dispatch = useDispatch();
 
   const handleOk = (trigger,setUndoCommandsCount) => {
+    if(input.trim().length === 0){
+      alert("Name cannot be empty.");
+      return;
+    }
       let collection = {
           id: uniquid(),
           name: input,
