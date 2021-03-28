@@ -48,7 +48,7 @@ export default function Collections() {
   return (
       <ContextConsumer>
         {(value) => {
-          const { setCollection, trigger,setUndoCommandsCount} = value;
+          const { setCollection, trigger,setUndoCommandsCount, collection} = value;
           return (
               <div className="col-4 border border-top-0">
                 <div className="p-3 bg-light border border-1">
@@ -72,23 +72,23 @@ export default function Collections() {
                       </>
                   </div>
                 </div>
-                <div>
+                <div style={{overflow:"auto", height: "540px"}}>
                   {
-                    collections && collections.map(collection => {
+                    collections && collections.map(singleCollection => {
                       return(
                           <>
-                              <Row>
-                                  <Col md={16}>
-                                      <div key={collection.id} onClick={() => setCollection({id: collection.id, name: collection.name})} className="p-2" style={{cursor: "pointer"}}>
-                                          {collection.name}
-                                      </div>
-                                  </Col>
-                                  <Col md={4} offset={4}>
-                                      <div onClick={() => remove(trigger,collection,setUndoCommandsCount)} className="p-2" style={{cursor: "pointer"}}>
-                                          <DeleteOutlined />
-                                      </div>
-                                  </Col>
-                              </Row>
+                            <Row className="p-1" style={{backgroundColor:collection && collection?.id == singleCollection?.id ? '#EFEFF1' : null,marginTop:5,marginBottom:5}} >
+                              <Col md={16}>
+                                <div key={singleCollection.id} onClick={() => setCollection({id: singleCollection.id, name: singleCollection.name})} className="p-2" style={{cursor: "pointer"}}>
+                                  {singleCollection.name}
+                                </div>
+                              </Col>
+                              <Col md={4} offset={4} >
+                                <div onClick={() => remove(trigger,singleCollection,setUndoCommandsCount)} className="p-2 d-flex justify-content-end" style={{cursor: "pointer"}}>
+                                  <DeleteOutlined />
+                                </div>
+                              </Col>
+                            </Row>
                           </>
                       );
                     })
