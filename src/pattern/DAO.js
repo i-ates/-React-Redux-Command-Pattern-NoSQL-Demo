@@ -1,6 +1,6 @@
 var FileSaver = require("file-saver");
 
-export default class JsonDAO {
+export default class DAO {
   obj2xml = function (obj, opt) {
     var endScopeObj = {};
     if (!opt) opt = {};

@@ -1,6 +1,6 @@
 import Invoker from "./Invoker";
 import Middleware from "./Middleware";
-import JsonDAO from "./dao/JsonDAO";
+import DAO from "./DAO";
 import AddCollection from "./commands/AddCollection";
 import RemoveCollection from "./commands/RemoveCollection";
 import UpdateCollection from "./commands/UpdateCollection";
@@ -8,7 +8,7 @@ import UpdateCollection from "./commands/UpdateCollection";
 
 class Trigger {
     constructor() {
-        this._invoker = new Invoker(new Middleware(new JsonDAO()));
+        this._invoker = new Invoker(new Middleware(new DAO()));
     }
     getInvoker() {
         return this._invoker;
