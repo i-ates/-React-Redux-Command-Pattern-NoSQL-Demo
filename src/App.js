@@ -4,7 +4,6 @@ import {Provider} from "react-redux";
 import {ContextProvider} from "./contextapi/Context";
 import allReducers from "./reduxState/reducers"
 import "antd/dist/antd.css";
-import LeftMenu from "./components/LeftMenu";
 import Content from "./components/Content";
 
 const store = createStore(allReducers,window.__REDUX_DEVTOOLS_EXTENSION__&& window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -20,7 +19,6 @@ export default class App extends Component {
             integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
             crossOrigin="anonymous"
           />
-          <LeftMenu/>
           <Content/>
         </ContextProvider>
       </Provider>
