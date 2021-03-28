@@ -4,7 +4,6 @@ const collectionReducer = (
         },action) => {
     switch(action.type){
         case "ADD_COLLECTION":
-            console.log(action.payload);
             return {
                 ...prevState,
                 collections: [...prevState.collections,action.payload]
