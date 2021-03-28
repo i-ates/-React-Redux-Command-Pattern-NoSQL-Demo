@@ -1,5 +1,4 @@
 import { AppstoreAddOutlined } from "@ant-design/icons";
-import React, { Component } from "react";
 import ContextConsumer from "../contextapi/Context";
 import {useSelector} from "react-redux";
 

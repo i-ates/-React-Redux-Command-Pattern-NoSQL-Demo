@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import ContextConsumer from "../contextapi/Context";
 import {useSelector} from "react-redux";
@@ -10,7 +9,7 @@ export default function Documents() {
         {(value) => {
           const { setDocument, collection } = value;
           let currCollection = undefined;
-          if(collection != undefined) {
+          if(collection !== undefined) {
             currCollection = collections.filter(c => {
               return c.id === collection.id
             })[0];

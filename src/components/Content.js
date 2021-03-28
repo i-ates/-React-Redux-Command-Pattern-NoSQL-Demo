@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import ContentHeader from "./ContentHeader";
 import Collections from "./Collections";
 import Documents from "./Documents";
@@ -6,7 +5,6 @@ import Preview from "./Preview";
 import PageHeader from "./PageHeader";
 
 export default function Content() {
-  const { collections } = useSelector((state) => state.collectionReducer);
   return (
     <>
       <PageHeader/>
