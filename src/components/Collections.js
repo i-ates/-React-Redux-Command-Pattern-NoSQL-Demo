@@ -56,7 +56,7 @@ export default function Collections() {
                     Collections
                     <AppstoreAddOutlined className="d-flex mt-1 justify-content-end" onClick={showModal} />
                       <>
-                          <Modal title="Basic Modal" visible={isModalVisible} onOk={() => handleOk(trigger,setUndoCommandsCount)} onCancel={handleCancel}>
+                          <Modal title="Start a Collection" visible={isModalVisible} onOk={() => handleOk(trigger,setUndoCommandsCount)} onCancel={handleCancel}>
                               <Form
                                   {...layout}
                                   name="basic"
