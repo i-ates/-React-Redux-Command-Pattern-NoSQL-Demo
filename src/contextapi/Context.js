@@ -9,6 +9,15 @@ export class ContextProvider extends Component {
         super(props);
         this.state = {
             trigger: new Trigger(),
+            isJSON: true,
+            setIsJSON:  (value) => {
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        isJSON: value
+                    };
+                });
+            },
             setCollection: (collection) => {
                 this.setState(prevState => {
                     return {

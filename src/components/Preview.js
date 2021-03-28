@@ -12,7 +12,7 @@ export default function Preview() {
         if(collection !== undefined && document !== undefined){
             currDocument = collections.filter((c) => {
                 return c.id === collection.id;
-            })[0].filter(d => {
+            })[0].documents.filter(d => {
                 return d.id === document.id;
             })[0];
         }
