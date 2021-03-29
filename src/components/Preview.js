@@ -9,6 +9,10 @@ import ReactJson from 'react-json-view'
 
 export default function Preview() {
   const { collections } = useSelector((state) => state.collectionReducer);
+  const customTheme = {
+    "attributeKeyColor": "#FF0000",
+    "attributeValueColor": "#461634"
+  }
   return (
     <ContextConsumer>
       {(value) => {
@@ -35,7 +39,7 @@ export default function Preview() {
               {currDocument
                 ? isJSON
                   ? <ReactJson src={currDocument} />
-                  : <XMLViewer xml={obj2xml(currDocument)} />
+                  : <XMLViewer xml={obj2xml(currDocument)} theme={customTheme} indentSize={6} collapsible={true} />
                 : null}
             </div>
           </div>
