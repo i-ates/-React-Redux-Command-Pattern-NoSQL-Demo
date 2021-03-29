@@ -72,7 +72,7 @@ export default function Collections() {
   ) => {
     swal({
       title: "Are you sure?",
-      text: "Do you really want to delete document?",
+      text: "Do you really want to delete collection?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
