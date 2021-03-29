@@ -27,45 +27,79 @@ export default function Collections() {
 
   const handleOk = (trigger, setUndoCommandsCount) => {
     if (isThereEror()) {
-        swal({
-            title: "Warning!",
-            text: "All blanks must be filled.",
-            icon: "warning",
-            dangerMode: true,
-        });
-        return;
+      swal({
+        title: "Warning!",
+        text: "All blanks must be filled.",
+        icon: "warning",
+        dangerMode: true,
+      });
+      return;
     }
     let collection = {
       id: uniquid(),
       name: collectionName,
       documents: [],
     };
-    setCollectionName(null);
-    trigger.addCollection(collection);
-    setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
-    dispatch(addCollection(collection));
     setIsModalVisible(false);
+    swal({
+      title: "Successfully added.",
+      icon: "success",
+      timer: 1500,
+    }).then((isClicked) => {
+      setCollectionName(null);
+      trigger.addCollection(collection);
+      setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
+      dispatch(addCollection(collection));
+    });
   };
 
   const isThereEror = () => {
-    try{
-        let result = collectionName === null || collectionName.trim() === "";
-        return result;
-    }catch(err){
-        return true;
+    try {
+      let result = collectionName === null || collectionName.trim() === "";
+      return result;
+    } catch (err) {
+      return true;
     }
   };
 
   const remove = (trigger, collection, setUndoCommandsCount) => {
-    trigger.removeCollection(collection);
-    setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
-    dispatch(removeCollection(collection));
+    swal({
+      title: "Are you sure?",
+      text: "Do you really want to delete document?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          await swal({
+            title: "Succesfully deleted.",
+            icon: "success",
+            timer: 1500,
+          });
+          trigger.removeCollection(collection);
+          setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
+          dispatch(removeCollection(collection));
+        } catch (error) {
+          swal({
+            title: "Warning!",
+            text: "Something went wrong.",
+            icon: "warning",
+            dangerMode: true,
+          });
+        }
+      }
+    });
   };
 
   const onChange = (event) => {
     const { value, name } = event.target;
     const e = { ...errors };
-    if(value.trim() === "" ? (e[name] = `Must be filled.`) : (e[name] = undefined));
+    if (
+      value.trim() === ""
+        ? (e[name] = `Must be filled.`)
+        : (e[name] = undefined)
+    );
     setCollectionName(value);
     setErrors(e);
   };
@@ -84,7 +118,7 @@ export default function Collections() {
           setUndoCommandsCount,
           collection,
         } = value;
-        const {collectionName:collectionError} = errors; 
+        const { collectionName: collectionError } = errors;
         return (
           <div className="col-4 border border-top-0">
             <div className="p-3 bg-light border border-1">
@@ -136,7 +170,8 @@ export default function Collections() {
                         className="p-1"
                         style={{
                           backgroundColor:
-                            collection && collection?.id === singleCollection?.id
+                            collection &&
+                            collection?.id === singleCollection?.id
                               ? "#EFEFF1"
                               : null,
                           marginBottom: 5,

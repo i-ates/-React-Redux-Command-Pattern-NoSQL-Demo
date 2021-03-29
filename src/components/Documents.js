@@ -7,10 +7,13 @@ import uniquid from "uniquid";
 import { updateCollection } from "../reduxState/actions";
 import swal from "sweetalert";
 
-
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
 };
 export default function Documents() {
   const { collections } = useSelector((state) => state.collectionReducer);
@@ -44,18 +47,22 @@ export default function Documents() {
       name: documentName,
       content: {},
     };
-    setDocumentName(null);
-    let collection = {
-      id: oldCollection.id,
-      name: oldCollection.name,
-      documents: oldCollection.documents,
-    };
-    collection.documents = [...collection.documents, document];
-    trigger.updateCollection(oldCollection, collection);
-    setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
-    setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
-    dispatch(updateCollection(collection));
     setIsModalVisible(false);
+    swal({ title: "Successfully added.", icon: "success", timer: 1500 }).then(
+      (isClicked) => {
+        setDocumentName(null);
+        let collection = {
+          id: oldCollection.id,
+          name: oldCollection.name,
+          documents: oldCollection.documents,
+        };
+        collection.documents = [...collection.documents, document];
+        trigger.updateCollection(oldCollection, collection);
+        setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
+        setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
+        dispatch(updateCollection(collection));
+      }
+    );
   };
   const remove = (
     trigger,
@@ -64,18 +71,43 @@ export default function Documents() {
     oldCollection,
     documentId
   ) => {
-    let collection = {
-      id: oldCollection.id,
-      name: oldCollection.name,
-      documents: oldCollection.documents,
-    };
-    collection.documents = [
-      ...collection.documents.filter((d) => d.id !== documentId),
-    ];
-    trigger.updateCollection(oldCollection, collection);
-    setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
-    setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
-    dispatch(updateCollection(collection));
+    
+    swal({
+			title: "Are you sure?",
+			text: "Do you really want to delete document?",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		}).then(async (willDelete) => {
+			if (willDelete) {
+				try {
+					await swal({
+						title: "Succesfully deleted.",
+						icon: "success",
+            timer: 1500
+					});
+					let collection = {
+            id: oldCollection.id,
+            name: oldCollection.name,
+            documents: oldCollection.documents,
+          };
+          collection.documents = [
+            ...collection.documents.filter((d) => d.id !== documentId),
+          ];
+          trigger.updateCollection(oldCollection, collection);
+          setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
+          setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
+          dispatch(updateCollection(collection));
+				} catch (error) {
+          swal({
+            title: "Warning!",
+            text: "Something went wrong.",
+            icon: "warning",
+            dangerMode: true,
+          });
+				}
+			}
+		});
   };
   const handleCancel = () => {
     setDocumentName(null);
@@ -84,12 +116,10 @@ export default function Documents() {
   };
   const onChange = (event) => {
     const { value, name } = event.target;
-    const e = { ...errors };
-    if (
-      value.trim() === ""
-        ? (e[name] = `Must be filled.`)
-        : (e[name] = undefined)
-    );
+    const e = {
+      ...errors,
+    };
+    value.trim() === "" ? (e[name] = `Must be filled.`) : (e[name] = undefined);
     setDocumentName(value);
     setErrors(e);
   };
@@ -118,12 +148,12 @@ export default function Documents() {
             return c.id === collection.id;
           })[0];
         }
-        const {documentName:documentError} = errors;
+        const { documentName: documentError } = errors;
         return (
           <div className="col-4 border border-top-0">
             <div className="p-3 bg-light border border-1">
               <div className="d-flex justify-content-between">
-                Documents
+                Documents{" "}
                 {currCollection && (
                   <>
                     <AppstoreAddOutlined
@@ -169,10 +199,15 @@ export default function Documents() {
                       </Modal>
                     </>
                   </>
-                )}
+                )}{" "}
               </div>
             </div>
-            <div style={{ overflow: "auto", height: "540px" }}>
+            <div
+              style={{
+                overflow: "auto",
+                height: "540px",
+              }}
+            >
               {currCollection &&
                 currCollection.documents &&
                 currCollection.documents.map((singleDocument) => {
@@ -200,7 +235,7 @@ export default function Documents() {
                             className="p-2"
                             style={{ cursor: "pointer" }}
                           >
-                            {singleDocument.name}
+                            {singleDocument.name}{" "}
                           </div>
                         </Col>
                         <Col md={4} offset={4}>
@@ -223,7 +258,7 @@ export default function Documents() {
                       </Row>
                     </>
                   );
-                })}
+                })}{" "}
             </div>
           </div>
         );
