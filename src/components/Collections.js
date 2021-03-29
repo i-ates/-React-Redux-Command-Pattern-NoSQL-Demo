@@ -62,7 +62,14 @@ export default function Collections() {
     }
   };
 
-  const remove = (trigger, collection, setUndoCommandsCount) => {
+  const remove = (
+    trigger,
+    collection,
+    setUndoCommandsCount,
+    currCollection,
+    setCollection,
+    setDocument
+  ) => {
     swal({
       title: "Are you sure?",
       text: "Do you really want to delete document?",
@@ -77,6 +84,10 @@ export default function Collections() {
             icon: "success",
             timer: 1500,
           });
+          if (collection.id === currCollection.id) {
+            setDocument(undefined);
+            setCollection(undefined);
+          }
           trigger.removeCollection(collection);
           setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
           dispatch(removeCollection(collection));
@@ -117,6 +128,7 @@ export default function Collections() {
           trigger,
           setUndoCommandsCount,
           collection,
+          setDocument,
         } = value;
         const { collectionName: collectionError } = errors;
         return (
@@ -148,8 +160,8 @@ export default function Collections() {
                         <Input
                           className={
                             collectionError
-                              ? "form-control is-invalid shadow p-2"
-                              : "form-control shadow p-2"
+                              ? "form-control is-invalid shadow-sm p-2"
+                              : "form-control shadow-sm p-2"
                           }
                           onChange={(e) => onChange(e)}
                           name="collectionName"
@@ -198,7 +210,10 @@ export default function Collections() {
                               remove(
                                 trigger,
                                 singleCollection,
-                                setUndoCommandsCount
+                                setUndoCommandsCount,
+                                collection,
+                                setCollection,
+                                setDocument
                               )
                             }
                             className="p-2 d-flex justify-content-end"

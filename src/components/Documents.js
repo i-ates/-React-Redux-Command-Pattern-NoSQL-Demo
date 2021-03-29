@@ -69,7 +69,9 @@ export default function Documents() {
     setUndoCommandsCount,
     setRedoCommandsCount,
     oldCollection,
-    documentId
+    documentId,
+    document,
+    setDocument
   ) => {
     
     swal({
@@ -98,6 +100,9 @@ export default function Documents() {
           setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
           setRedoCommandsCount(trigger.getInvoker().getRedoCommands().length);
           dispatch(updateCollection(collection));
+          if(documentId === document.id){
+            setDocument(undefined);
+          }
 				} catch (error) {
           swal({
             title: "Warning!",
@@ -246,7 +251,9 @@ export default function Documents() {
                                 setUndoCommandsCount,
                                 setRedoCommandsCount,
                                 currCollection,
-                                singleDocument.id
+                                singleDocument.id,
+                                document,
+                                setDocument
                               )
                             }
                             className="p-2 d-flex justify-content-end"
