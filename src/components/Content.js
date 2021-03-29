@@ -8,7 +8,7 @@ export default function Content() {
   return (
     <>
       <PageHeader/>
-      <div className="container mt-5" style={{ height: "600px" }}>
+      <div className="container mt-4" style={{ height: "600px" }}>
         <ContentHeader />
         <div className="row justify-content-center no-gutters h-100 bg-white border rounded">
           <Collections />
