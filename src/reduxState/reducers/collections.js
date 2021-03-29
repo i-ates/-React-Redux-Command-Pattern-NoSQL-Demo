@@ -14,9 +14,17 @@ const collectionReducer = (
                 collections: [...prevState.collections.filter(collection => collection.id !== action.payload.id)]
             }
         case "UPDATE_COLLECTION":
+            let count = 0; 
+            prevState.collections.forEach((collection,index) => {
+                if(collection.id === action.payload.id){
+                    count = index;
+                }
+            });
+            let collections = [...prevState.collections];
+            collections.splice(count,1,action.payload);
             return{
                 ...prevState,
-                collections: [...prevState.collections.filter(collection => collection.id !== action.payload.id) , action.payload]
+                collections
             }
         case "UNDO":
         case "REDO":
