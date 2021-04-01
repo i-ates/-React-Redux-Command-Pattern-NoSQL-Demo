@@ -8,7 +8,6 @@ class Invoker {
         command.execute();
         this._undoCommands.push(command);
         this._redoCommands = [];
-        return this;
     }
     undo() {
         try {
@@ -16,7 +15,7 @@ class Invoker {
             command.unexecute();
             this._redoCommands.push(command);
         } catch (error) { }
-        return this;
+        return this.getMiddleware().getCollections();
     }
     redo() {
         try {
@@ -24,11 +23,13 @@ class Invoker {
             command.execute();
             this._undoCommands.push(command);
         } catch (error) { }
-        return this;
+        return this.getMiddleware().getCollections();
     }
     commit() {
         this._middleware.commit();
-        return this;
+    }
+    save(type){
+        this._middleware.save(type);
     }
     getMiddleware() {
         return this._middleware;

@@ -1,13 +1,14 @@
-import AddDocument from "./commands/AddDocument";
-import RemoveDocument from "./commands/RemoveDocument";
-import UpdateDocument from "./commands/UpdateDocument";
 import Invoker from "./Invoker";
 import Middleware from "./Middleware";
-import JsonDAO from "./dao/JsonDAO";
+import DAO from "./DAO";
+import AddCollection from "./commands/AddCollection";
+import RemoveCollection from "./commands/RemoveCollection";
+import UpdateCollection from "./commands/UpdateCollection";
+
 
 class Trigger {
-    constructor(gui) {
-        this._invoker = new Invoker(new Middleware(new JsonDAO(),gui));
+    constructor() {
+        this._invoker = new Invoker(new Middleware(new DAO()));
     }
     getInvoker() {
         return this._invoker;
@@ -15,23 +16,28 @@ class Trigger {
     setInvoker(newInvoker) {
         this._invoker = newInvoker;
     }
-    addElement(object) {
-        this._invoker.execute(new AddDocument(object, this._invoker.getMiddleware()));
+    addCollection(object) {
+        this._invoker.execute(new AddCollection(object, this._invoker.getMiddleware()));
     }
-    removeElement(object) {
-        this._invoker.execute(new RemoveDocument(object, this._invoker.getMiddleware()));
+    removeCollection(object) {
+        this._invoker.execute(new RemoveCollection(object, this._invoker.getMiddleware()));
     }
-    updateElement(previousObject, object) {
-        this._invoker.execute(new UpdateDocument(previousObject, object, this._invoker.getMiddleware()));
+    updateCollection(previousObject, object) {
+        this._invoker.execute(new UpdateCollection(previousObject, object, this._invoker.getMiddleware()));
     }
     undo() {
-        this._invoker.undo();
+        let collections = this._invoker.undo();
+        return collections;
     }
     redo() {
-        this._invoker.redo();
+        let collections = this._invoker.redo();
+        return collections;
     }
     commit() {
         this._invoker.commit();
+    }
+    save(type){
+        this._invoker.save(type);
     }
 }
 export default Trigger;
