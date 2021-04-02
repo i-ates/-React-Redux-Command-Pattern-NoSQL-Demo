@@ -79,11 +79,6 @@ export default function Collections() {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          await swal({
-            title: "Succesfully deleted.",
-            icon: "success",
-            timer: 1500,
-          });
           if (collection.id === currCollection.id) {
             setDocument(undefined);
             setCollection(undefined);
@@ -91,6 +86,11 @@ export default function Collections() {
           trigger.removeCollection(collection);
           setUndoCommandsCount(trigger.getInvoker().getUndoCommands().length);
           dispatch(removeCollection(collection));
+          await swal({
+            title: "Succesfully deleted.",
+            icon: "success",
+            timer: 1500,
+          });
         } catch (error) {
           swal({
             title: "Warning!",
@@ -132,7 +132,7 @@ export default function Collections() {
         } = value;
         const { collectionName: collectionError } = errors;
         return (
-          <div className="col-4 border border-top-0">
+          <div className="col-3 border border-top-0">
             <div className="p-3 bg-light border border-1">
               <div className="d-flex justify-content-between">
                 Collections

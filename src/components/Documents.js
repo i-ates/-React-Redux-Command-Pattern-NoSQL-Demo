@@ -155,7 +155,7 @@ export default function Documents() {
         }
         const { documentName: documentError } = errors;
         return (
-          <div className="col-4 border border-top-0">
+          <div className="col-3 border border-top-0">
             <div className="p-3 bg-light border border-1">
               <div className="d-flex justify-content-between">
                 Documents{" "}
