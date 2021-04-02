@@ -2,7 +2,8 @@ import { AppstoreAddOutlined } from "@ant-design/icons";
 import ContextConsumer from "../contextapi/Context";
 import { useSelector } from "react-redux";
 import obj2xml from "../helper/obj2xml";
-
+import { JsonEditor as Editor } from "jsoneditor-react";
+import "jsoneditor-react/es/editor.min.css";
 import XMLViewer from "react-xml-viewer";
 import ReactJson from "react-json-view";
 import { useState } from "react";
@@ -14,7 +15,15 @@ export default function Preview() {
     attributeKeyColor: "#FF0000",
     attributeValueColor: "#461634",
   };
-  const isModalVisible = useState(false);
+
+  const [editState, setEditState] = useState(false);
+
+  function updateJson() {
+    setEditState(false);
+  }
+  function editButtonPressed() {
+    setEditState(!editState);
+  }
 
   return (
     <ContextConsumer>
@@ -37,21 +46,17 @@ export default function Preview() {
                 Content
                 <AppstoreAddOutlined
                   className="d-flex mt-1 justify-content-end"
-                  //onClick={() => updateContent()}
+                  onClick={() => editButtonPressed()}
                 />
               </div>
             </div>
             <div className="p-3 ">
               {currDocument ? (
-                isJSON ? (
-                  <JsonEditor
-                    className="bg-light"
-                    style={{ border: "none" }}
-                    tableLike={true}
-                    value={currDocument}
-                  />
+                editState ? (
+                  <Editor value={currDocument} />
+                ) : isJSON ? (
+                  <ReactJson src={currDocument} />
                 ) : (
-                  //<ReactJson src={currDocument} />
                   <XMLViewer
                     xml={obj2xml(currDocument)}
                     theme={customTheme}
